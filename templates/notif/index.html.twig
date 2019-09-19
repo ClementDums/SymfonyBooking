@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notif index{% endblock %}
+
+{% block body %}
+    <h1>Notif index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Consulted</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notif in notifs %}
+            <tr>
+                <td>{{ notif.id }}</td>
+                <td>{{ notif.consulted ? 'Yes' : 'No' }}</td>
+                <td>{{ notif.message }}</td>
+                <td>{{ notif.date ? notif.date|date('Y-m-d') : '' }}</td>
+                <td>{{ notif.type }}</td>
+                <td>
+                    <a href="{{ path('notif_show', {'id': notif.id}) }}">show</a>
+                    <a href="{{ path('notif_edit', {'id': notif.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('notif_new') }}">Create new</a>
+{% endblock %}

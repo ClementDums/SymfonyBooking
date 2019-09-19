@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce{% endblock %}
+
+{% block body %}
+    <h1>Annonce</h1>
+
+    <table class="table">
+        <tbody>
+
+        <tr>
+            <th>Title</th>
+            <td>{{ annonce.title }}</td>
+        </tr>
+        <tr>  {% if annonce.media is not null %}
+                <img class="annonce_img_show"
+                     src="{{ vich_uploader_asset(annonce.media, 'imageFile', 'App\\Entity\\Media') }}"
+                     style="width: 100%"/>
+            {% endif %}</tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ annonce.description }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ annonce.city }}</td>
+        </tr>
+        <tr>
+            <th>MaxDuration</th>
+            <td>{{ annonce.maxDuration ? annonce.maxDuration.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Available</th>
+            <td>{% if annonce.active==true %}This annonce is available{% else %}This annonce is not available :({% endif %}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    {% if annonce.active==true %}
+    <a href="{{ path('annonce_reserve', {'id': annonce.id}) }}">Reserve this
+        annonce</a>
+    {% endif %}
+
+
+    <a href="{{ path('annonce_index') }}">back to list</a>
+
+    <a href="{{ path('annonce_edit', {'id': annonce.id}) }}">edit</a>
+
+    {{ include('annonce/_delete_form.html.twig') }}
+{% endblock %}

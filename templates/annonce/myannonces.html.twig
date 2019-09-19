@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce index{% endblock %}
+
+{% block body %}
+    <h1>My annonces</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>City</th>
+            <th>MaxDuration</th>
+            <th>Is located</th>
+            <th>Owner</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.title }}</td>
+                <td>{{ annonce.city }}</td>
+                <td>{{ annonce.maxDuration ? annonce.maxDuration.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+                <td>{{ annonce.active ? 'Yes' : 'No' }}</td>
+                <td>{{ annonce.lender.firstname }}</td>
+
+                <td>
+                    <a href="{{ path('annonce_show', {'id': annonce.id}) }}">show</a>
+                    <a href="{{ path('annonce_edit', {'id': annonce.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_USER') %}<a href="{{ path('annonce_new') }}">Create new</a>{% endif %}
+    <a href="{{ path('annonce_index') }}">See all annonces</a>
+
+{% endblock %}

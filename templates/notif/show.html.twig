@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notif{% endblock %}
+
+{% block body %}
+    <h1>Notif</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ notif.id }}</td>
+            </tr>
+            <tr>
+                <th>Consulted</th>
+                <td>{{ notif.consulted ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ notif.message }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ notif.date ? notif.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ notif.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('notif_index') }}">back to list</a>
+
+    <a href="{{ path('notif_edit', {'id': notif.id}) }}">edit</a>
+
+    {{ include('notif/_delete_form.html.twig') }}
+{% endblock %}

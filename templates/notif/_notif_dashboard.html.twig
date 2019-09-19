@@ -1,0 +1,26 @@
+<div class="notif">
+<p class="notif_title">Notifications</p>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notif in notifs %}
+            <tr>
+                <td>{{ notif.message }}</td>
+                <td>
+                    <a href="{{ path('notif_show', {'id': notif.id}) }}">show</a>
+                    <a href="{{ path('notif_edit', {'id': notif.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

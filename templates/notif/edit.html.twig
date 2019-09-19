@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Notif{% endblock %}
+
+{% block body %}
+    <h1>Edit Notif</h1>
+
+    {{ include('notif/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('notif_index') }}">back to list</a>
+
+    {{ include('notif/_delete_form.html.twig') }}
+{% endblock %}

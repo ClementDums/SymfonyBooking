@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce index{% endblock %}
+
+{% block body %}
+    <h1>Active annonces</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>City</th>
+            <th>MaxDuration</th>
+            <th>Active</th>
+            <th>Owner</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.title }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>{{ annonce.city }}</td>
+                <td>{{ annonce.maxDuration ? annonce.maxDuration.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+                <td>{{ annonce.active ? 'Yes' : 'No' }}</td>
+                <td>{{ annonce.lender.firstname }}</td>
+                 <td>{% if annonce.media is not null %}
+                    <img class="annonce_img" src="{{ vich_uploader_asset(annonce.media, 'imageFile', 'App\\Entity\\Media') }}" style="width: 100%"/>
+                {% endif %}</td>
+
+                <td>
+                    <a href="{{ path('annonce_show', {'id': annonce.id}) }}">show</a>
+                     {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('annonce_edit', {'id': annonce.id}) }}">edit</a>{% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_USER') %}<a href="{{ path('annonce_new') }}">Create new</a>{% endif %}
+    <a href="{{ path('annonce_index') }}">See all annonces</a>
+
+{% endblock %}
